@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Keyframes (referenced by tailwind.config.js and utilities below) ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(var(--tilt, 0deg));
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-950 font-sans text-zinc-200 antialiased;
+  }
+
+  ::selection {
+    background: rgba(168, 85, 247, 0.45);
+    color: #fff;
+  }
+
+  /* Slim dark scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3b2d5c transparent;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-medium text-zinc-200 transition hover:border-purple-400/50 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .chip {
+    @apply rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-zinc-300 transition hover:border-purple-400/60 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400;
+  }
+
+  .chip-active {
+    @apply border-transparent bg-brand-gradient text-white shadow-md shadow-purple-900/40;
+  }
+
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-ink-800 px-3 py-2.5 text-sm text-zinc-100 transition focus:border-purple-400/70 focus:outline-none focus:ring-2 focus:ring-purple-500/30;
+  }
+
+  .field option {
+    background: #120d1f;
+    color: #e4e4e7;
+  }
+
+  .text-gradient {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+
+  /* Loading placeholder */
+  .shimmer {
+    background: linear-gradient(
+      110deg,
+      rgba(255, 255, 255, 0.04) 8%,
+      rgba(255, 255, 255, 0.13) 18%,
+      rgba(255, 255, 255, 0.04) 33%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Big outlined rank numbers for the Top 10 list */
+  .rank-number {
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-weight: 800;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.85);
+    text-shadow: 0 4px 24px rgba(124, 58, 237, 0.6);
+  }
+}
+
+/* ---------- Range slider ---------- */
+input[type='range'].range-brand {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+}
+input[type='range'].range-brand::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #8b5cf6, #ef4444);
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.7);
+}
+input[type='range'].range-brand::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #8b5cf6, #ef4444);
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+input[type='range'].range-brand:focus-visible {
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
